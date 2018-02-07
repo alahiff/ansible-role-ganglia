@@ -24,6 +24,12 @@
   action: service name=gmond state=running
   when: "ansible_os_family == 'RedHat'"
   
+- name: correct permissions of rrds directory
+  file:
+    path: /var/lib/ganglia/rrds
+    owner: nobody
+    group: nobody
+  
 - name: configure gmetad
   action: template src=gmetad.conf dest=/etc/ganglia/gmetad.conf owner=root group=root
   notify:
